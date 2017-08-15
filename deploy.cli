@@ -1,0 +1,3 @@
+undeploy poc-vraptor-jboss-cluster.war --all-relevant-server-groups
+deploy target/war/poc-vraptor-jboss-cluster.war --force
+deploy --name=poc-vraptor-jboss-cluster.war --server-groups=app-1-server-group
