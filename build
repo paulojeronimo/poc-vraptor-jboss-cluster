@@ -90,6 +90,7 @@ _build() {
 }
 
 _update_patches() {
+  rsync -R WebContent/WEB-INF/jsp/index/index.jsp patches/
   rsync -R WebContent/WEB-INF/web.xml patches/
   rsync -R src/br/com/caelum/vraptor/blank/IndexController.java patches/
   rsync -R src/cluster/teste/TesteServlet.java patches/

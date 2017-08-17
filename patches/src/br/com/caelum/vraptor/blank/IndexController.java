@@ -22,6 +22,8 @@ import br.com.caelum.vraptor.Result;
 
 import javax.servlet.http.HttpSession;
 
+import java.net.InetAddress;
+
 @Resource
 public class IndexController {
 
@@ -35,16 +37,19 @@ public class IndexController {
 
 	@Path("/")
 	public void index() {
-		result.include("variable", "VRaptor!");
     String poc = (String) session.getAttribute("poc");
 
-    if (poc != null) {
-      result.include("variable", poc);
-      System.out.println(String.format("variable = %s", poc));
+    if (poc == null) {
+      try {
+        poc = InetAddress.getLocalHost().toString();
+      } catch (Exception e) {
+        poc = "Could not get host/ip!. Check logs!";
+        e.printStackTrace();
+      }
+      result.include("variable", "created");
+      session.setAttribute("poc", poc);
     } else {
-      String value = "<b>Session Value</b>";
-      session.setAttribute("poc", value);
-      System.out.println(String.format("Adding poc = %s on session", value));
+      result.include("variable", poc);
     }
 	}
 }
